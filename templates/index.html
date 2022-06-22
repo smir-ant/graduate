@@ -1,0 +1,42 @@
+{% include "header.html" %}
+
+{% if not current_user.is_authenticated: %}
+    <h1 style="text-align:center; margin-top:3%;">Необходим аккаунт</h1>
+{% else: %}
+    <div class="container">
+        <h1 style="text-align:center; margin:4% 0 3% 0;">Учет материальных ценностей</h1>
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+          <a class="btn btn-success" href="{{ url_for('index_new') }}" role="button" title="Добавить запись"><i class="bi bi-plus-circle"> Добавить запись</i></a>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th >Название</th>
+                    <th>Тип</th>
+                    <th>Находится в</th>
+                    <th>Гарантия до</th>
+                    <th>Инв. №</th>
+                    <th>Работает с</th>
+                    {% if current_user.role == 'admin' %}<th>[Удалить]</th>{% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                    {% for index in range(all_mat_cen|length) %}
+                    <tr>
+                        <th scope="row">{{ index + 1 }}</th>
+                        <td>{{ all_mat_cen[index].title }} </td>
+                        <td>{{ all_mat_cen[index].type }}</td>
+                        <td>{{ all_mat_cen[index].locate_in }}</td>
+                        <td>{{ all_mat_cen[index].guarantee }}</td>
+                        <td>{{ all_mat_cen[index].inventory_number }}</td>
+                        <td>{{ all_mat_cen[index].work_from }}</td>
+                        {% if current_user.role == 'admin' %}<td><a href="{{ url_for('index_delete', item_id=all_mat_cen[index].id) }}"><i class="bi bi-trash"></i></a></td>{% endif %}
+                    </tr>
+                    {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% endif %}

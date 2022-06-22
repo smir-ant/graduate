@@ -1,0 +1,54 @@
+{% include "header.html" %}
+
+{% if not current_user.is_authenticated: %}
+    <h1 style="text-align:center; margin-top:3%;">Необходим аккаунт</h1>
+{% else: %}
+    <div class="container">
+        <h1 style="text-align:center; margin:4% 0 3% 0;">Подробная информация</h1>
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+          <a class="btn btn-primary" href="{{ url_for('receive_invoices') }}" role="button" title="Добавить запись"><i class="bi bi-arrow-left"></i> Вернуться</i></a>
+        </div>
+
+        <table class="table table-hover"  style="margin-top:2%;">
+            <tbody>
+                <tr>
+                    <th>Номер накладной</th>
+                    <td>{{receive_invoice_more.invoice_number}}</td>
+                </tr>
+                <tr>
+                    <th>Дата накладной</th>
+                    <td>{{receive_invoice_more.date}}</td>
+                </tr>
+                <tr>
+                    <th>Приобретено у поставщика</th>
+                    <td>{{receive_invoice_more.suppliers_list}}</td>
+                </tr>
+                <tr>
+                    <th>Получатель</th>
+                    <td>{{receive_invoice_more.receiver}}</td>
+                </tr>
+                <tr>
+                    <th class="table-light">[ТОВАР] Название</th>
+                    <td class="table-light">{{receive_invoice_more.title}}</td>
+                </tr>
+                <tr>
+                    <th class="table-light">[ТОВАР] Находится в отделе</th>
+                    <td class="table-light">{{receive_invoice_more.locate_in}}</td>
+
+                </tr>
+                <tr>
+                    <th class="table-light">[ТОВАР] Инв. №</th>
+                    <td class="table-light">{{receive_invoice_more.inventory_number}}</td>
+                </tr>
+                <tr>
+                    <th class="table-light">[ТОВАР] Тип</th>
+                    <td class="table-light">{{receive_invoice_more.type}}</td>
+                </tr>
+                <tr>
+                    <th class="table-light">[ТОВАР] Гарантия до</th>
+                    <td class="table-light">{{receive_invoice_more.guarantee}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endif %}

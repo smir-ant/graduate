@@ -1,0 +1,32 @@
+{% include "header.html" %}
+
+{% if not current_user.is_authenticated: %}
+    <h1 style="text-align:center; margin-top:3%;">Необходим аккаунт</h1>
+{% else: %}
+    <div class="container">
+        <h1 style="text-align:center; margin:4% 0 3% 0;">Типы материальных ценностей</h1>
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+          <a class="btn btn-success" href="{{ url_for('material_type_new') }}" role="button" title="Добавить запись"><i class="bi bi-plus-circle"> Добавить запись</i></a>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th>Название</th>
+                    <th>[Удалить]</th>
+                </tr>
+            </thead>
+            <tbody>
+                    {% for index in range(tipi_mat_cen|length): %}
+                    <tr>
+                        <th scope="row">{{ index + 1 }}</th>
+                        <td>{{ tipi_mat_cen[index].title }} </td>
+                        <td><a href="{{ url_for('material_type_delete', item_id=tipi_mat_cen[index].id) }}"><i class="bi bi-trash"></i></a></td>
+                    </tr>
+                    {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% endif %}

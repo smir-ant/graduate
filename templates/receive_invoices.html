@@ -1,0 +1,43 @@
+{% include "header.html" %}
+
+{% if not current_user.is_authenticated: %}
+    <h1 style="text-align:center; margin-top:3%;">Необходим аккаунт</h1>
+{% else: %}
+    <div class="container">
+        <h1 style="text-align:center; margin:4% 0 3% 0;">Накладные на принятие</h1>
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+          <a class="btn btn-success" href="{{ url_for('receive_invoices_new') }}" role="button" title="Добавить запись"><i class="bi bi-plus-circle"> Добавить запись</i></a>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th>Дата накладной</th>
+                    <th>№ накладной'</th>
+                    <th>Приобретено в</th>
+                    <th>Получил</th>
+                    <th>Выполнена</th>
+                    <th>[Подробнее]</th>
+                    <th>[Удалить]</th>
+                </tr>
+            </thead>
+            <tbody>
+                    {% for index in range(receive_invoice|length) %}
+                    <tr>
+                        <th scope="row">{{ index + 1 }}</th>
+                        <td>{{ receive_invoice[index].date }} </td>
+                        <td>{{ receive_invoice[index].invoice_number }}</td>
+                        <td>{{ receive_invoice[index].suppliers_list }}</td>
+                        <td>{{ receive_invoice[index].receiver }}</td>
+                        {% if receive_invoice[index].is_done == 0 %}<td><i class="bi bi-x-square text-danger"></i></td>
+                        {% else %} <td><i class="bi bi-check2-square text-success"></i></td>{% endif %}
+                        <td><a href="{{ url_for('receive_invoices_more', item_id=receive_invoice[index].id) }}"><i class="bi bi-eye"></i></a></td>
+                        <td><a href="{{ url_for('receive_invoices_delete', item_id=receive_invoice[index].id) }}"><i class="bi bi-trash"></i></a></td>
+                    </tr>
+                    {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% endif %}

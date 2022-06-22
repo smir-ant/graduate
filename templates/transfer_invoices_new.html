@@ -1,0 +1,25 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% include "header.html" %}
+
+  <div class="container" style="margin-top:4%;">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="page-heading">
+          <h1 style="text-align:center;">Добавить запись <br>[НАКЛАДНЫЕ НА ПЕРЕДАЧУ]</h1>
+        </div>
+      </div>
+
+      <!-- нужно чтобы сообщения о валидации были красными, локальный прикол -->
+      <div class="color-red">
+            <form class="form form-horizontal" method="post" role="form" novalidate>
+                {{ form.csrf_token }}
+                <div style="margin-top:2%;">{{ wtf.form_field(form.uchet_field) }}</div>
+                <div style="margin-top:2%;">{{ wtf.form_field(form.from_field) }}</div>
+                <div style="margin-top:2%;">{{ wtf.form_field(form.to_field) }}</div>
+                <div style="margin-top:2%;">{{ wtf.form_field(form.in_connection_with) }}</div>
+                <div style="margin-top:2%;">{{ wtf.form_field(form.responsible) }}</div>
+                <div style="margin:3% 0 5% 0;"><input class="btn btn-primary" type="submit" value="Добавить запись"></div>
+            </form>
+      </div>
+    </div>
+  </div>

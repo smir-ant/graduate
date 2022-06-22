@@ -1,0 +1,16 @@
+{% include "header.html" %}
+
+{% if not current_user.is_authenticated: %}
+    <h1 style="text-align:center; margin-top:3%;">Необходим аккаунт</h1>
+{% else: %}
+    <div class="container">
+        <h1 style="text-align:center; margin:4% 0 3% 0;">Нормативы</h1>
+    <form class="form form-horizontal" method="POST" enctype="multipart/form-data">
+      <label class="form-label">Выберите файл для выгрузки</label>
+      <input class="form-control form-control-lg" type="file" name="file">
+      <div style="margin:3% 0 5% 0;"><input class="btn btn-primary" type="submit" value="Добавить норматив"></div>
+    </form>
+
+    </div>
+{% endif %}
+        

@@ -1,0 +1,38 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+{% include "header.html" %}
+
+<!-- Page Header -->
+  <div class="container" style="margin-top:4%;">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="page-heading">
+          <h1>Вход</h1>
+        </div>
+      </div>
+      <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto content">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <p style="color:red;">{{ message }}</p>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+
+      <!-- нужно чтобы сообщения о валидации были красными, локальный прикол -->
+      <div class="color-red">
+<!--      {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}-->
+      <form class="form form-horizontal" method="post" role="form" novalidate>
+        {{ form.csrf_token }}
+        <div style="margin-top:2%; color-red">{{ wtf.form_field(form.email) }}</div>
+        <div style="margin-top:2%;">{{ wtf.form_field(form.password) }}</div>
+        <div style="margin-top:3%;"><input class="btn btn-primary" type="submit" value="Войти"></div>
+      </form>
+      </div>
+    </div>
+  </div>
+    </div>
+
+{% endblock %}
